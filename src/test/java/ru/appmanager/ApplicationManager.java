@@ -7,7 +7,6 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Objects;
@@ -16,9 +15,10 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
   private final Properties properties;
-  WebDriver wd;
-
-  private String browser;
+  private WebDriver wd;
+  private String browser; //драйвера используемых браузеров расположены в .../Tools
+  private AuthorizationHelper authorizationHelper;
+  private NavigationHelper navigationHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -27,22 +27,48 @@ public class ApplicationManager {
 
   public void init() throws IOException {
     String target = System.getProperty("target", "local");
-    properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+    properties.load(new FileReader(new File(String.format("src\\test\\resources\\%s.properties", target))));
+  }
 
-    if (Objects.equals(browser, BrowserType.FIREFOX)) {
-      wd = new FirefoxDriver();
-    } else if (Objects.equals(browser, BrowserType.CHROME)) {
-      wd = new ChromeDriver();
-    } else if (Objects.equals(browser, BrowserType.IE)) {
-      wd = new InternetExplorerDriver();
+  public WebDriver getDriver() {
+    if (wd == null) {
+      if (Objects.equals(browser, BrowserType.FIREFOX)) {
+        wd = new FirefoxDriver();
+      } else if (Objects.equals(browser, BrowserType.CHROME)) {
+        wd = new ChromeDriver();
+      } else if (Objects.equals(browser, BrowserType.IE)) {
+        wd = new InternetExplorerDriver();
+      }
+      wd.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+      wd.get(properties.getProperty("web.baseUrl"));
     }
-
-    wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-    wd.get(properties.getProperty("web.baseUrl"));
+    return wd;
   }
 
   public void stop() {
-    wd.quit();
+    if (wd != null) {
+      wd.quit();
+    }
   }
+
+  public AuthorizationHelper login() {
+    if (authorizationHelper == null) {
+      authorizationHelper = new AuthorizationHelper(this);
+    }
+    return authorizationHelper;
+  }
+
+  public NavigationHelper goTo() {
+    if (navigationHelper == null) {
+      navigationHelper = new NavigationHelper(this);
+    }
+    return navigationHelper;
+  }
+
+  //Получение значений из конфигурационного файла
+  public String getProperty(String key) {
+    return properties.getProperty(key);
+  }
+
 
 }
