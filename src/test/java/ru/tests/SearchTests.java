@@ -7,7 +7,7 @@ public class SearchTests extends TestBase {
 
   @Test
   public void testSearch() {
-    app.login().roleSpark(app.getProperty("web.roleSparkLogin"), app.getProperty("web.roleSparkPassword"));
+    app.login().roleSpark();
     app.goTo().logout();
   }
 }

@@ -12,10 +12,10 @@ public class AuthorizationHelper extends HelperBase {
     super(app);
   }
 
-  public void roleSpark(String login, String password) {
+  public void roleSpark() {
     wd.get(app.getProperty("web.baseUrl"));
-    type(By.xpath("//input[@name='username']"), login);
-    type(By.xpath("//input[@name='password']"), password);
+    type(By.xpath("//input[@name='username']"), app.getProperty("web.roleSparkLogin"));
+    type(By.xpath("//input[@name='password']"), app.getProperty("web.roleSparkPassword"));
     click(By.xpath("//input[@class='login-btn']"));
     //Проверяем наличие элементов на странице
     WebElement dashbordPanel = wd.findElement(By.xpath("//*[@class='dashbord-panel']"));
