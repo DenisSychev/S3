@@ -8,6 +8,6 @@ public class SearchTests extends TestBase {
   @Test
   public void testSearch() {
     app.login().roleSpark();
-    app.goTo().logout();
+    //app.goTo().logout();
   }
 }
