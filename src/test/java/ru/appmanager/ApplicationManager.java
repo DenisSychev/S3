@@ -19,6 +19,7 @@ public class ApplicationManager {
   private String browser; //драйвера используемых браузеров расположены в .../Tools
   private AuthorizationHelper authorizationHelper;
   private NavigationHelper navigationHelper;
+  private SearchHelper searchHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -28,6 +29,11 @@ public class ApplicationManager {
   public void init() throws IOException {
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format("src\\test\\resources\\%s.properties", target))));
+  }
+
+  //Получение значений из конфигурационного файла
+  public String getProperty(String key) {
+    return properties.getProperty(key);
   }
 
   public WebDriver getDriver() {
@@ -65,10 +71,11 @@ public class ApplicationManager {
     return navigationHelper;
   }
 
-  //Получение значений из конфигурационного файла
-  public String getProperty(String key) {
-    return properties.getProperty(key);
+
+  public SearchHelper search() {
+    if (searchHelper == null) {
+      searchHelper = new SearchHelper(this);
+    }
+    return searchHelper;
   }
-
-
 }

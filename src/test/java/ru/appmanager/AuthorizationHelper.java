@@ -22,6 +22,8 @@ public class AuthorizationHelper extends HelperBase {
     assertTrue(dashbordPanel.isDisplayed());
     WebElement headerMenu = wd.findElement(By.xpath("//*[@class='header-menu']"));
     assertTrue(headerMenu.isDisplayed());
+    WebElement searchPanel = wd.findElement(By.xpath("//input[contains(@class,'search-input')]"));
+    assertTrue(searchPanel.isDisplayed());
   }
 
 }
