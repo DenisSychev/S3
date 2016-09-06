@@ -9,7 +9,10 @@ public class SearchHelper extends HelperBase {
     super(app);
   }
 
-  public void fillSearchPanel() {
-    type(By.xpath("//input[contains(@class,'search-input')]"), "Лукойл");
+  public void segmentRU(String word) {
+    click(By.xpath("//div[@class='search-block']/div[1]/div[1]/button"));
+    click(By.linkText("RU - Россия"));
+    type(By.xpath("//span[@class='twitter-typeahead']/input[2]"), word);
+    click(By.xpath("//div[@class='search-block']/div[1]/div[4]/button"));
   }
 }

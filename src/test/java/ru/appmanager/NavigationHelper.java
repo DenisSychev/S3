@@ -9,7 +9,4 @@ public class NavigationHelper extends HelperBase {
     super(app);
   }
 
-  public void logout() {
-    click(By.xpath("//a[@class='js-logout']']"));
-  }
 }

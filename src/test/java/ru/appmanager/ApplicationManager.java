@@ -17,7 +17,7 @@ public class ApplicationManager {
   private final Properties properties;
   private WebDriver wd;
   private String browser; //драйвера используемых браузеров расположены в .../Tools
-  private AuthorizationHelper authorizationHelper;
+  private UserHelper userHelper;
   private NavigationHelper navigationHelper;
   private SearchHelper searchHelper;
 
@@ -45,7 +45,7 @@ public class ApplicationManager {
       } else if (Objects.equals(browser, BrowserType.IE)) {
         wd = new InternetExplorerDriver();
       }
-      wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+      wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
       wd.get(properties.getProperty("web.baseUrl"));
     }
     return wd;
@@ -57,11 +57,11 @@ public class ApplicationManager {
     }
   }
 
-  public AuthorizationHelper login() {
-    if (authorizationHelper == null) {
-      authorizationHelper = new AuthorizationHelper(this);
+  public UserHelper user() {
+    if (userHelper == null) {
+      userHelper = new UserHelper(this);
     }
-    return authorizationHelper;
+    return userHelper;
   }
 
   public NavigationHelper goTo() {
