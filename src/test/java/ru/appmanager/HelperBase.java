@@ -23,4 +23,13 @@ public class HelperBase {
   protected void click(By locator) {
     wd.findElement(locator).click();
   }
+
+  public boolean isElementPresent(By by) {
+    try {
+      wd.findElements(by);
+      return true;
+    } catch (org.openqa.selenium.NoSuchElementException e) {
+      return false;
+    }
+  }
 }
