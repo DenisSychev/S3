@@ -14,6 +14,12 @@ public class SearchHelper extends HelperBase {
     click(By.linkText("RU - Россия"));
     type(By.xpath("//span[@class='twitter-typeahead']/input[2]"), word);
     click(By.xpath("//div[@class='search-block']/div[1]/div[4]/button"));
-    isElementPresent(By.xpath("//*[@class='js-items']//a[@class='company-link']"));
+  }
+
+  public void segmentUA(String word) {
+    click(By.xpath("//div[@class='search-block']/div[1]/div[1]/button"));
+    click(By.linkText("UA - Украина"));
+    type(By.xpath("//span[@class='twitter-typeahead']/input[2]"), word);
+    click(By.xpath("//div[@class='search-block']/div[1]/div[4]/button"));
   }
 }

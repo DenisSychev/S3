@@ -45,8 +45,7 @@ public class ApplicationManager {
       } else if (Objects.equals(browser, BrowserType.IE)) {
         wd = new InternetExplorerDriver();
       }
-      wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-      wd.get(properties.getProperty("web.baseUrl"));
+      wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
     return wd;
   }

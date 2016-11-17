@@ -9,4 +9,11 @@ public class NavigationHelper extends HelperBase {
     super(app);
   }
 
+  public void productionSite() {
+    wd.get(app.getProperty("web.baseUrl"));
+  }
+
+  public void integrationSite() {
+    wd.get(app.getProperty("web.integrationUrl") + "promo");
+  }
 }
